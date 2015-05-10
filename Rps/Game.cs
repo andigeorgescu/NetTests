@@ -8,16 +8,15 @@ namespace Rps
 {
     public class Game
     {
-        private Dictionary<Tool, Tool> whoBeats;
+        private Dictionary<Tool, List<Tool>> whoBeats;
 
         public Game()
         {
-            whoBeats = new Dictionary<Tool, Tool>();
-            whoBeats.Add(Tool.Scissors, Tool.Rock);
-            whoBeats.Add(Tool.Paper, Tool.Scissors);
-            whoBeats.Add(Tool.Rock, Tool.Paper);
-            whoBeats.Add(Tool.Ac, Tool.Rock);
-            whoBeats.Add(Tool.Paper, Tool.Ac);
+            whoBeats = new Dictionary<Tool, List<Tool>>();
+            whoBeats.Add(Tool.Scissors, new List<Tool> {Tool.Rock});
+            whoBeats.Add(Tool.Paper, new List<Tool>{Tool.Ac,Tool.Scissors});
+            whoBeats.Add(Tool.Rock, new List<Tool> { Tool.Paper });
+            whoBeats.Add(Tool.Ac, new List<Tool> { Tool.Rock });
         }
 
         public ResultType Challange(Tool playerOneTool, Tool playerTwoTool)
@@ -40,7 +39,7 @@ namespace Rps
         {
             var whoBeatsPlayerOne = whoBeats[playerTool1];
 
-            return whoBeatsPlayerOne == playerTool2;
+            return whoBeatsPlayerOne.Contains(playerTool2);
         }
 
         public Tool Tools { get; set; }
